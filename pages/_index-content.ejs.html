@@ -1,9 +1,104 @@
 
 <div class="strib strib-styles strib-styles-specifically">
   <section class="container-lg">
-    <p>Content goes here.</p>
+    <header class="hero">
+      <h1>The Star Tribune Top 50 Companies</h1>
+
+      <p class="lead container-sm">Here's a lead-in paragraph to let you know what about to happen.</p>
+
+      <div class="byline">
+        <address>By
+          <a rel="author" href="http://example.com/author">Patrick Kennedy</a>
+        </address>
+        <span class="spacer"></span>
+        Star Tribune
+        <span class="spacer-alt"></span>
+        <time pubdate datetime="2017-07-30T16:00:00">July 30, 2018</time>
+      </div>
+    </header>
+
+    <main>
+      <div class="controls">
+        <h1 aria-label="controls-form" class="sr-only">Controls to adjust list of companies</h1>
+
+        <form class="inline-form" id="controls-form">
+          <div class="inline-form-element">
+            <label for="filter-category">Filter</label>
+            <div id="filter-category" role="group">
+              <button type="button">Healthcare</button>
+              <button type="button">Example 1</button>
+              <button type="button">Example 2</button>
+              <button type="button">Example 3</button>
+              <button type="button">Example 4</button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <h1 aria-label="company-list" class="sr-only">List of companies</h1>
+      <ul class="company-list">
+        <% companies.forEach((company, ci) => { %>
+          <li>
+            <div class="row">
+              <div class="col col-25">
+                <div class="rank">
+                  <%= ci + 1 %>
+                </div>
+              </div>
+
+              <div class="col col-75">
+                <h2>Company</h2>
+
+                <p>Some bits about the company here.  Some bits about the company here.  Some bits about the company here.  Some bits about the company here.</p>
+
+                <ul class="tags">
+                  <li>TICKER</li>
+                  <li>Healthcare</li>
+                  <li>2016 ranking: <strong>2</strong></li>
+                  <li>Grand Rapids</li>
+                  <li><a href="http://example.com" target="_blank" rel="noopener">example.com</a></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col col-25 company-logo">
+                <img src="./assets/images/company-logos/health-partners.png" alt="Logo for Company">
+              </div>
+
+              <div class="col col-25">
+                <ul class="data-list">
+                  <li class="revenue"><span>$88.8M</span> in revenue</li>
+                  <li class="revenue-change"><span>10.3%</span> <i class="strib-icon strib-arrow-value-up "></i> change from 2016</li>
+                  <li class="revenue-return"><span>4.2%</span> return on revenue</li>
+                </ul>
+              </div>
+
+              <div class="col col-25">
+                <ul class="data-list">
+                  <li class="profits"><span>$12.3M</span> in profits</li>
+                  <li class="profits-change"><span>3.3%</span> <i class="strib-icon strib-arrow-value-down "></i> change from 2016</li>
+                </ul>
+              </div>
+
+              <div class="col col-25">
+                <ul class="data-list">
+                  <li class="employees"><span>12.2k</span> employees</li>
+                  <li class="profits-change"><span>91.2%</span> <i class="strib-icon strib-arrow-value-up "></i> change from 2016</li>
+                </ul>
+              </div>
+            </div>
+          </li>
+        <% }) %>
+      </ul>
+    </main>
+
+    <footer class="container-md">
+      <div class="credits">
+        <p>Data collected from examples.  Data collected from examples.  Data collected from examples.  Data collected from examples.  Data collected from examples.  Data collected from examples.  Data collected from examples.  Data collected from examples.</p>
+
+        <p>Star Tribune graphic: Patrick Kennedy, Alan Palazzolo, Jamie Hutt, Billy Steve Clayton</p>
+      </div>
+    </footer>
   </section>
 </div>
-
-
-

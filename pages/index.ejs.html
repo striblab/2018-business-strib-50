@@ -7,7 +7,15 @@
   </head>
 
   <body class="">
+    <div class="strib strib-styles strib-styles-specifically">
+      @@include('./_cms-nav.ejs.html')
+    </div>
+
     @@include('./_index-content.ejs.html')
+
+    <div class="strib strib-styles strib-styles-specifically">
+      @@include('./_cms-footer.ejs.html')
+    </div>
 
     <!-- Global/external scripts -->
     <% if (config.js && config.js.globals) { config.js.globals.forEach(function(s) { %>

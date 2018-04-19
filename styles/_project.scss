@@ -1,3 +1,124 @@
 /**
  * Project specific styling.
  */
+
+form.inline-form {
+  display: flex;
+
+  .inline-form-element {
+    label,
+    & > div {
+      display: inline-block;
+    }
+
+    label {
+      margin-right: 1em;
+    }
+  }
+
+  button {
+    padding: 0.5em;
+  }
+}
+
+.controls {
+  margin-bottom: 2em;
+}
+
+.company-list {
+  margin: 0;
+  padding: 0;
+
+  & > li {
+    margin: 0;
+    padding: 0;
+    margin-bottom: 2em;
+  }
+
+  p {
+    margin-bottom: 1em;
+  }
+
+  .rank {
+    width: 100%;
+    font-size: 3em;
+    text-align: center;
+    padding: 0.5em;
+    background-color: map-get($grays, 'lighter');
+  }
+
+  h2 {
+    font-size: 2em;
+    padding: 0;
+    margin: 0 0 0.5em;
+  }
+
+  .tags {
+    margin: 0;
+    padding: 0;
+    margin-bottom: 1em;
+
+    li {
+      font-size: 0.75em;
+      display: inline-block;
+      padding-right: 2em;
+      margin-right: 2em;
+      border-right: 2px solid map-get($grays, 'lighter');
+    }
+
+    li:last-child {
+      margin-right: 0;
+      padding-right: 0;
+      border-right: none;
+    }
+  }
+
+  .company-logo {
+    text-align: right;
+
+    img {
+      max-height: 8em;
+    }
+  }
+
+  .data-list {
+    margin: 0;
+    padding: 0;
+    margin-bottom: 1em;
+
+    .strib-icon:before {
+      vertical-align: baseline;
+    }
+
+    li {
+      margin: 0;
+      padding: 0;
+      font-size: 0.75em;
+
+      span {
+        font-size: 1.5em;
+      }
+    }
+
+    .revenue,
+    .profits,
+    .employees {
+      margin-bottom: 1em;
+
+      span {
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+footer .credits {
+  font-size: 0.65em;
+  padding-top: 5em;
+
+  p {
+    @include font-styles('bentons-sans');
+
+    margin-bottom: 1em;
+  }
+}

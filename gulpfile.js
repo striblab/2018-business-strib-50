@@ -36,9 +36,16 @@ const gulpContent = require('./lib/gulp-content.js');
 const gulpPublish = require('./lib/gulp-publish.js');
 const jest = require('./lib/gulp-jest.js');
 const buildData = require('./lib/build-data.js');
-const config = exists('config.custom.json') ? require('./config.custom.json') : require('./config.json');
+const config = exists('config.custom.json')
+  ? require('./config.custom.json')
+  : require('./config.json');
 const argv = require('yargs').argv;
 require('dotenv').load({ silent: true });
+
+// Allow to require svelte components
+require('svelte/ssr/register')({
+  extensions: ['.svelte', '.svelte.html']
+});
 
 // Process base html templates/pages (not templates used in front-end JS),
 // Add more data local or remotely like:
@@ -50,9 +57,11 @@ gulp.task('html', async () => {
     pkg: 'package.json',
     config: { data: config },
     argv: { data: argv },
-    _: { data: _ }
+    _: { data: _ },
+    companies: { data: _.range(50) }
   });
 
+  // Put together
   return gulp
     .src(
       _.filter(
@@ -69,14 +78,18 @@ gulp.task('html', async () => {
         ])
       )
     )
-    .pipe(include({
-      prefix: '@@',
-      basepath: '@file'
-    }))
+    .pipe(
+      include({
+        prefix: '@@',
+        basepath: '@file'
+      })
+    )
     .pipe(ejs(data).on('error', gutil.log))
-    .pipe(rename(function(path) {
-      path.basename = path.basename.replace('.ejs', '');
-    }))
+    .pipe(
+      rename(function(path) {
+        path.basename = path.basename.replace('.ejs', '');
+      })
+    )
     .pipe(noopener.warn())
     .pipe(gulp.dest('build/'));
 });
@@ -84,14 +97,16 @@ gulp.task('html', async () => {
 // Lint HTML (happens after HTML build process).  The "stylish" version
 // is more succinct but its less helpful to find issues.
 gulp.task('html:lint', ['html'], () => {
-  return gulp.src('build/*.html')
+  return gulp
+    .src('build/*.html')
     .pipe(htmlhint('.htmlhintrc'))
     .pipe(htmlhint.reporter('htmlhint-stylish'))
     .pipe(a11y())
     .pipe(a11y.reporter());
 });
 gulp.task('html:lint:details', ['html'], () => {
-  return gulp.src('build/*.html')
+  return gulp
+    .src('build/*.html')
     .pipe(htmlhint('.htmlhintrc'))
     .pipe(htmlhint.reporter())
     .pipe(a11y())
@@ -107,37 +122,45 @@ gulp.task('content:share', gulpContent.share(gulp, config, 'writer'));
 
 // Lint JS
 gulp.task('js:lint', () => {
-  return gulp.src(['app/**/*.js', 'gulpfile.js'])
+  return gulp
+    .src(['app/**/*.js', 'gulpfile.js'])
     .pipe(eslint())
     .pipe(eslint.format());
 });
 
 // Lint styles/css
 gulp.task('styles:lint', () => {
-  return gulp.src(['styles/**/*.scss'])
-    .pipe(stylelint({
+  return gulp.src(['styles/**/*.scss']).pipe(
+    stylelint({
       failAfterError: false,
       reporters: [{ formatter: 'string', console: true }]
-    }));
+    })
+  );
 });
 
 // Compile styles
 gulp.task('styles', ['styles:lint'], () => {
-  return gulp.src('styles/index.scss')
+  return gulp
+    .src('styles/index.scss')
     .pipe(sourcemaps.init())
-    .pipe(sass({
-      outputStyle: 'compressed',
-      includePaths: [
-        path.join(__dirname, 'node_modules')
-      ]
-    }).on('error', sass.logError))
-    .pipe(autoprefixer({
-      // browsers: See browserlist file
-      cascade: false
-    }))
-    .pipe(rename((path) => {
-      path.basename = path.basename === 'index' ? 'styles.bundle' : path.basename;
-    }))
+    .pipe(
+      sass({
+        outputStyle: 'compressed',
+        includePaths: [path.join(__dirname, 'node_modules')]
+      }).on('error', sass.logError)
+    )
+    .pipe(
+      autoprefixer({
+        // browsers: See browserlist file
+        cascade: false
+      })
+    )
+    .pipe(
+      rename(path => {
+        path.basename =
+          path.basename === 'index' ? 'styles.bundle' : path.basename;
+      })
+    )
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('build/'));
 });
@@ -145,7 +168,8 @@ gulp.task('styles', ['styles:lint'], () => {
 // Build JS
 gulp.task('js', ['js:lint', 'js:test'], () => {
   // Use the webpack.config.js to manage locations and options.
-  return gulp.src('app/index.js')
+  return gulp
+    .src('app/index.js')
     .pipe(webpackStream(webpackConfig, webpack))
     .pipe(gulp.dest('build'));
 });
@@ -153,25 +177,26 @@ gulp.task('js', ['js:lint', 'js:test'], () => {
 // Assets
 gulp.task('assets', () => {
   // Copy a couple files to root for more global support
-  gulp.src(['./assets/images/favicons/favicon.ico'])
-    .pipe(gulp.dest('build'));
+  gulp.src(['./assets/images/favicons/favicon.ico']).pipe(gulp.dest('build'));
 
-  return gulp.src('assets/**/*')
-    .pipe(gulp.dest('build/assets'));
+  return gulp.src('assets/**/*').pipe(gulp.dest('build/assets'));
 });
 
 // Clean build
 gulp.task('clean', () => {
-  return del([ 'build/**/*' ]);
+  return del(['build/**/*']);
 });
 
 // Testing ,manully using jest module because
-gulp.task('js:test', jest('js:test', {
-  rootDir: __dirname,
-  testMatch: ['**/*.test.js'],
-  testPathIgnorePatterns: ['acceptance'],
-  setupFiles: [ './tests/globals.js' ]
-}));
+gulp.task(
+  'js:test',
+  jest('js:test', {
+    rootDir: __dirname,
+    testMatch: ['**/*.test.js'],
+    testPathIgnorePatterns: ['acceptance'],
+    setupFiles: ['./tests/globals.js']
+  })
+);
 
 // TODO: Use https://github.com/GoogleChrome/puppeteer
 // gulp.task('js:test:acceptance', jest('js:test:acceptance', {
@@ -264,15 +289,18 @@ gulp.task('server', ['build'], () => {
 
   return browserSync.init({
     port: 3000,
-    proxy: 'http://' +
+    proxy:
+      'http://' +
       (argv.mobile ? 'vm-m' : 'vm-www') +
       '.startribune.com/x/' +
       (argv['cms-id'] ? argv['cms-id'] : config.cms.id) +
       '?preview=1&cache=trash',
-    serveStatic: [{
-      route: '/' + config.publish.production.path,
-      dir: './build'
-    }],
+    serveStatic: [
+      {
+        route: '/' + config.publish.production.path,
+        dir: './build'
+      }
+    ],
     files: './build/**/*',
     rewriteRules: rewriteRules,
     logLevel: argv.debug ? 'debug' : 'info'
@@ -282,14 +310,21 @@ gulp.task('server', ['build'], () => {
 // Watch for building
 gulp.task('watch', () => {
   gulp.watch(['styles/**/*.scss'], ['styles']);
-  gulp.watch(['pages/**/*', 'config.*json', 'package.json', 'content.json'], ['html:lint']);
+  gulp.watch(
+    ['pages/**/*', 'config.*json', 'package.json', 'content.json'],
+    ['html:lint']
+  );
   gulp.watch(['app/**/*', 'config.json'], ['js']);
   gulp.watch(['assets/**/*'], ['assets']);
   gulp.watch(['config.*json'], ['publish:config']);
 });
 
 // Publishing
-gulp.task('publish', ['publish:token', 'publish:confirm'], gulpPublish.publish(gulp));
+gulp.task(
+  'publish',
+  ['publish:token', 'publish:confirm'],
+  gulpPublish.publish(gulp)
+);
 gulp.task('publish:token', gulpPublish.createToken(gulp));
 gulp.task('publish:config', gulpPublish.buildConfig(gulp));
 gulp.task('publish:confirm', gulpPublish.confirmToken(gulp));
@@ -300,7 +335,7 @@ gulp.task('build', ['publish:config', 'assets', 'html:lint', 'styles', 'js']);
 gulp.task('default', ['build']);
 
 // Deploy (build and publish)
-gulp.task('deploy', (done) => {
+gulp.task('deploy', done => {
   return runSequence('clean', 'build', 'publish', done);
 });
 gulp.task('deploy:open', ['publish:open']);
