@@ -1,27 +1,26 @@
 {
   "about this file": "This document defines configuration for this project that is not content or copy.",
   "projectIdentifier": "2018-business-strib-50",
-
   "cms": {
     "id": "123",
-    "pages": ["123"],
-    "lcds": ["456"],
+    "pages": [
+      "123"
+    ],
+    "lcds": [
+      "456"
+    ],
     "rewriteMapping": {
       "article-lcd-body-content": "_index-content.html"
     }
   },
-
-
-  "content": {
-
-  },
+  "content": {},
   "publish": {
-
     "production": {
       "bucket": "static.startribune.com",
       "path": "news/projects/all/2018-business-strib-50",
       "url": "http://static.startribune.com/news/projects/all/2018-business-strib-50/",
       "cacheSeconds": 600
     }
-  }
+  },
+  "publishToken": "cafb430f3d1288676da7dc0e3ff0c10b"
 }
