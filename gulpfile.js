@@ -36,6 +36,8 @@ const gulpContent = require('./lib/gulp-content.js');
 const gulpPublish = require('./lib/gulp-publish.js');
 const jest = require('./lib/gulp-jest.js');
 const buildData = require('./lib/build-data.js');
+const companyData = require('./lib/company-data.js');
+const companyHelpers = require('./lib/company-helpers.js');
 const config = exists('config.custom.json')
   ? require('./config.custom.json')
   : require('./config.json');
@@ -58,7 +60,9 @@ gulp.task('html', async () => {
     config: { data: config },
     argv: { data: argv },
     _: { data: _ },
-    companies: { data: _.range(50) }
+    companies: 'assets/companies-50.json',
+    h: { data: companyHelpers },
+    publishYear: { data: 2017 }
   });
 
   // Put together
@@ -307,6 +311,16 @@ gulp.task('server', ['build'], () => {
   });
 });
 
+// Custom data grab
+// Get data for application
+gulp.task(
+  'data:companies',
+  companyData('data', {
+    publishYear: 2017,
+    output: 'assets/companies-50.json'
+  })
+);
+
 // Watch for building
 gulp.task('watch', () => {
   gulp.watch(['styles/**/*.scss'], ['styles']);
@@ -331,7 +345,14 @@ gulp.task('publish:confirm', gulpPublish.confirmToken(gulp));
 gulp.task('publish:open', gulpPublish.openURL(gulp));
 
 // Full build
-gulp.task('build', ['publish:config', 'assets', 'html:lint', 'styles', 'js']);
+gulp.task('build', [
+  'data:companies',
+  'publish:config',
+  'assets',
+  'html:lint',
+  'styles',
+  'js'
+]);
 gulp.task('default', ['build']);
 
 // Deploy (build and publish)
