@@ -29,6 +29,14 @@ form.inline-form {
   margin: 0;
   padding: 0;
 
+  .strib-arrow-value-up {
+    color: map-get($theme, 'green-dark');
+  }
+
+  .strib-arrow-value-down {
+    color: map-get($theme, 'red-dark');
+  }
+
   & > li {
     margin: 0;
     padding: 0;
@@ -86,7 +94,7 @@ form.inline-form {
     padding: 0;
     margin-bottom: 1em;
 
-    .strib-icon:before {
+    .strib-icon::before {
       vertical-align: baseline;
     }
 

@@ -70,7 +70,9 @@
 
             <div class="row">
               <div class="col col-25 company-logo">
-                <img src="./assets/images/company-logos/health-partners.png" alt="Logo for <%= company.company %>">
+                <% if (company.hasLogo) { %>
+                  <img src="./assets/logos/<%= company.coid %>.png" alt="Logo for <%= company.company %>">
+                <% } %>
               </div>
 
               <div class="col col-25">
@@ -128,7 +130,7 @@
                     <span><%= h.getChange(company.finances, 'totalEmployees', publishYear) %></span>
                     <% if (h.getChange(company.finances, 'totalEmployees', publishYear, 2, false) > 0) { %>
                       <i class="strib-icon strib-arrow-value-up"></i>
-                    <% } else { %>
+                    <% } else if (h.getChange(company.finances, 'totalEmployees', publishYear, 2, false) < 0) { %>
                       <i class="strib-icon strib-arrow-value-down"></i>
                     <% } %>
                     change from 2016
