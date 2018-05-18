@@ -57,7 +57,7 @@
     "htmlhint-stylish": "^1.0.3",
     "indian-ocean": "^3.0.2",
     "jest-cli": "^22.4.2",
-    "moment": "^2.21.0",
+    "moment": "^2.22.1",
     "mysql": "^2.15.0",
     "openurl": "^1.1.1",
     "request": "^2.85.0",

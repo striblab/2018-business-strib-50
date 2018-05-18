@@ -37,28 +37,28 @@
 
       <h1 aria-label="company-list" class="sr-only">List of companies</h1>
       <ul class="company-list">
-        <% companies.forEach((company, ci) => { %>
+        <% companies.forEach((company, ci) => { if (company.ranks[publishYear] <= 50) { %>
           <li data-id="<%= company.coid %>">
             <div class="row">
               <div class="col col-25">
                 <div class="rank">
-                  <%= company.rank %>
+                  <%= company.ranks[publishYear] %>
                 </div>
               </div>
 
               <div class="col col-75">
-                <h2><%= company.company %></h2>
+                <h2><%= company.name %></h2>
 
-                <p><%= company.shortDesc %></p>
+                <p><%= company.shortdesc %></p>
 
                 <ul class="tags">
-                  <li><%= company.stockSymbol %></li>
+                  <li><%= company.stocksymbol %></li>
                   <li>Healthcare</li>
-                  <li>2016 ranking:
-                    <strong><%= company.previousRank %></strong>
-                    <% if (company.rank > company.previousRank) { %>
+                  <li><%= publishYear - 1 %> ranking:
+                    <strong><%= company.ranks[publishYear - 1] %></strong>
+                    <% if (company.ranks[publishYear] < company.ranks[publishYear - 1]) { %>
                       <i class="strib-icon strib-arrow-value-up"></i>
-                    <% } else if (company.rank < company.previousRank) { %>
+                    <% } else if (company.ranks[publishYear] > company.ranks[publishYear - 1]) { %>
                       <i class="strib-icon strib-arrow-value-down"></i>
                     <% } %>
                   </li>
@@ -68,12 +68,16 @@
               </div>
             </div>
 
-            <div class="row">
+            <div class="row data-row">
+              <!--
               <div class="col col-25 company-logo">
                 <% if (company.hasLogo) { %>
                   <img src="./assets/logos/<%= company.coid %>.png" alt="Logo for <%= company.company %>">
+                <% } else { %>
+                  &nbsp;
                 <% } %>
               </div>
+              -->
 
               <div class="col col-25">
                 <h3 class="sr-only">Revenue</h3>
@@ -85,16 +89,14 @@
                   </li>
 
                   <li class="revenue-change">
-                    <span><%= h.getChange(company.finances, 'revenue', publishYear) %></span>
+                    <span title="$<%= h.abbreviateNumber(h.getValue(company.finances, 'revenue', publishYear - 1)) %> in <%= publishYear - 1 %>"><%= h.getChange(company.finances, 'revenue', publishYear) %></span>
                     <% if (h.getChange(company.finances, 'revenue', publishYear, 2, false) > 0) { %>
                       <i class="strib-icon strib-arrow-value-up"></i>
                     <% } else { %>
                       <i class="strib-icon strib-arrow-value-down"></i>
                     <% } %>
-                    change from 2016
+                    change from <%= publishYear - 1 %>
                   </li>
-
-                  <li class="revenue-return"><span>0.0%</span> return on revenue</li>
                 </ul>
               </div>
 
@@ -103,43 +105,67 @@
 
                 <ul class="data-list">
                   <li class="profits">
-                    <span>$<%= h.abbreviateNumber(h.getValue(company.finances, 'netIncome', publishYear)) %></span>
+                    <span>$<%= h.abbreviateNumber(h.getValue(company.finances, 'netincome', publishYear)) %></span>
                     in profits
                   </li>
 
                   <li class="profits-change">
-                    <span><%= h.getChange(company.finances, 'netIncome', publishYear) %></span>
-                    <% if (h.getChange(company.finances, 'netIncome', publishYear, 2, false) > 0) { %>
+                    <span><%= h.getChange(company.finances, 'netincome', publishYear) %></span>
+                    <% if (h.getChange(company.finances, 'netincome', publishYear, 2, false) > 0) { %>
                       <i class="strib-icon strib-arrow-value-up"></i>
                     <% } else { %>
                       <i class="strib-icon strib-arrow-value-down"></i>
                     <% } %>
-                    change from 2016
+                    change from <%= publishYear - 1 %>
+                  </li>
+
+                  <li class="profits-before-extra">
+                    <span>$<%= h.abbreviateNumber(h.getValue(company.finances, 'netincomebeforeextra', publishYear)) %></span>
+                    net income before extra items
                   </li>
                 </ul>
               </div>
 
               <div class="col col-25">
-                <ul class="data-list">
-                  <li class="employees">
-                    <span><%= h.abbreviateNumber(h.getValue(company.finances, 'totalEmployees', publishYear)) %></span>
-                    employees
-                  </li>
+                <% if (h.getValue(company.employees, 'total', publishYear)) { %>
+                  <ul class="data-list">
+                    <li class="employees">
+                      <span><%= h.abbreviateNumber(h.getValue(company.employees, 'total', publishYear)) %></span>
+                      employees
+                    </li>
 
-                  <li class="employees-change">
-                    <span><%= h.getChange(company.finances, 'totalEmployees', publishYear) %></span>
-                    <% if (h.getChange(company.finances, 'totalEmployees', publishYear, 2, false) > 0) { %>
-                      <i class="strib-icon strib-arrow-value-up"></i>
-                    <% } else if (h.getChange(company.finances, 'totalEmployees', publishYear, 2, false) < 0) { %>
-                      <i class="strib-icon strib-arrow-value-down"></i>
-                    <% } %>
-                    change from 2016
-                  </li>
-                </ul>
+                    <li class="employees-change">
+                      <span><%= h.getChange(company.employees, 'total', publishYear) %></span>
+                      <% if (h.getChange(company.employees, 'total', publishYear, 2, false) > 0) { %>
+                        <i class="strib-icon strib-arrow-value-up"></i>
+                      <% } else if (h.getChange(company.employees, 'total', publishYear, 2, false) < 0) { %>
+                        <i class="strib-icon strib-arrow-value-down"></i>
+                      <% } %>
+                      change from <%= publishYear - 1 %>
+                    </li>
+                  </ul>
+                <% } else { %>
+                  <em>No employee information for this year.</em>
+                <% } %>
+              </div>
+
+              <div class="col col-25">
+                <% if (h.getValue(company.ceo.salaries, 'calculated_total_value', publishYear)) { %>
+                  <ul class="data-list">
+                    <li class="ceo-name"><%= h.officerName(company.ceo) %>, <%= company.ceo.title %></li>
+
+                    <li class="ceo-pay">
+                      <span>$<%= h.abbreviateNumber(h.getValue(company.ceo.salaries, 'calculated_total_value', publishYear)) %></span>
+                      total compensation
+                    </li>
+                  </ul>
+                <% } else { %>
+                  <em>No CEO information for this year.</em>
+                <% } %>
               </div>
             </div>
           </li>
-        <% }) %>
+        <% }}) %>
       </ul>
     </main>
 

@@ -60,9 +60,20 @@ gulp.task('html', async () => {
     config: { data: config },
     argv: { data: argv },
     _: { data: _ },
-    companies: 'assets/companies-50.json',
+    companies: {
+      location: `${
+        process.env.DATA_UI_LOCATION
+      }/api/v01/company_details/?publishyear=2018&limit=100&username=${
+        process.env.DATA_UI_USERNAME
+      }&api_key=${process.env.DATA_UI_API_KEY}`,
+      ttl: 1000 * 60 * 60 * 24,
+      type: 'json',
+      transform: companyData,
+      publishYear: 2018,
+      logos: path.join(__dirname, 'assets', 'logos')
+    },
     h: { data: companyHelpers },
-    publishYear: { data: 2017 }
+    publishYear: { data: 2018 }
   });
 
   // Put together
@@ -311,16 +322,6 @@ gulp.task('server', ['build'], () => {
   });
 });
 
-// Custom data grab
-// Get data for application
-gulp.task(
-  'data:companies',
-  companyData('data', {
-    publishYear: 2017,
-    output: 'assets/companies-50.json'
-  })
-);
-
 // Watch for building
 gulp.task('watch', () => {
   gulp.watch(['styles/**/*.scss'], ['styles']);
@@ -345,14 +346,7 @@ gulp.task('publish:confirm', gulpPublish.confirmToken(gulp));
 gulp.task('publish:open', gulpPublish.openURL(gulp));
 
 // Full build
-gulp.task('build', [
-  'data:companies',
-  'publish:config',
-  'assets',
-  'html:lint',
-  'styles',
-  'js'
-]);
+gulp.task('build', ['publish:config', 'assets', 'html:lint', 'styles', 'js']);
 gulp.task('default', ['build']);
 
 // Deploy (build and publish)

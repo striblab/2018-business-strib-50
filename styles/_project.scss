@@ -30,11 +30,11 @@ form.inline-form {
   padding: 0;
 
   .strib-arrow-value-up {
-    color: map-get($theme, 'green-dark');
+    color: map-get($theme, "green-dark");
   }
 
   .strib-arrow-value-down {
-    color: map-get($theme, 'red-dark');
+    color: map-get($theme, "red-dark");
   }
 
   & > li {
@@ -52,7 +52,7 @@ form.inline-form {
     font-size: 3em;
     text-align: center;
     padding: 0.5em;
-    background-color: map-get($grays, 'lighter');
+    background-color: map-get($grays, "lighter");
   }
 
   h2 {
@@ -71,7 +71,7 @@ form.inline-form {
       display: inline-block;
       padding-right: 2em;
       margin-right: 2em;
-      border-right: 2px solid map-get($grays, 'lighter');
+      border-right: 2px solid map-get($grays, "lighter");
     }
 
     li:last-child {
@@ -87,6 +87,10 @@ form.inline-form {
     img {
       max-height: 8em;
     }
+  }
+
+  .data-row em {
+    font-size: 0.5em;
   }
 
   .data-list {
@@ -125,7 +129,7 @@ footer .credits {
   padding-top: 5em;
 
   p {
-    @include font-styles('bentons-sans');
+    @include font-styles("bentons-sans");
 
     margin-bottom: 1em;
   }
