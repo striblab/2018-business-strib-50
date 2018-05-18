@@ -4,6 +4,9 @@ config.custom.json
 .awspublish*
 .cache*
 
+# Data
+data/build/*
+data/source/*
 
 
 # Common
