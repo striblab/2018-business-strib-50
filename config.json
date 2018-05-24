@@ -3,9 +3,9 @@
     "This document defines configuration for this project that is not content or copy.",
   "projectIdentifier": "2018-business-strib-50",
   "cms": {
-    "id": "123",
-    "pages": ["123"],
-    "lcds": ["456"],
+    "id": "483224831",
+    "pages": ["483224831"],
+    "lcds": ["483226351"],
     "rewriteMapping": {
       "article-lcd-body-content": "_index-content.html"
     }

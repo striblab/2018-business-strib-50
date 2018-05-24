@@ -23,6 +23,10 @@ form.inline-form {
 
 .controls {
   margin-bottom: 2em;
+
+  button.active {
+    background-color: map-get($theme, "green-dark");
+  }
 }
 
 .company-list {
@@ -114,7 +118,9 @@ form.inline-form {
 
     .revenue,
     .profits,
-    .employees {
+    .employees,
+    .marketcap,
+    .assets {
       margin-bottom: 1em;
 
       span {
