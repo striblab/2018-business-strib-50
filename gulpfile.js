@@ -38,6 +38,7 @@ const jest = require('./lib/gulp-jest.js');
 const buildData = require('./lib/build-data.js');
 const companyData = require('./lib/company-data.js');
 const companyHelpers = require('./lib/company-helpers.js');
+const companyPrint = require('./lib/company-print.js');
 const config = exists('config.custom.json')
   ? require('./config.custom.json')
   : require('./config.json');
@@ -107,6 +108,27 @@ gulp.task('html', async () => {
     )
     .pipe(noopener.warn())
     .pipe(gulp.dest('build/'));
+});
+
+// Print CSVs
+gulp.task('print:data', async () => {
+  let data = await buildData({
+    companies: {
+      location: `${
+        process.env.DATA_UI_LOCATION
+      }/api/v01/company_details/?publishyear=2018&limit=100&username=${
+        process.env.DATA_UI_USERNAME
+      }&api_key=${process.env.DATA_UI_API_KEY}`,
+      ttl: 1000 * 60 * 60 * 24,
+      type: 'json',
+      transform: companyData,
+      publishYear: 2018,
+      logos: path.join(__dirname, 'assets', 'logos')
+    },
+    publishYear: { data: 2018 }
+  });
+
+  companyPrint(data);
 });
 
 // Lint HTML (happens after HTML build process).  The "stylish" version
