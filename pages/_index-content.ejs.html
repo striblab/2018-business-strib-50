@@ -107,23 +107,18 @@
 
                 <ul class="data-list">
                   <li class="profits">
-                    <span>$<%= h.abbreviateNumber(h.getValue(company.finances, 'netincome', publishYear)) %></span>
+                    <span>$<%= h.abbreviateNumber(h.getValue(company.finances, 'netincomebeforeextra', publishYear)) %></span>
                     in profits
                   </li>
 
                   <li class="profits-change">
-                    <span><%= h.getChange(company.finances, 'netincome', publishYear) %></span>
-                    <% if (h.getChange(company.finances, 'netincome', publishYear, 2, false) > 0) { %>
+                    <span><%= h.getChange(company.finances, 'netincomebeforeextra', publishYear) %></span>
+                    <% if (h.getChange(company.finances, 'netincomebeforeextra', publishYear, 2, false) > 0) { %>
                       <i class="strib-icon strib-arrow-value-up"></i>
                     <% } else { %>
                       <i class="strib-icon strib-arrow-value-down"></i>
                     <% } %>
                     change from <%= publishYear - 1 %>
-                  </li>
-
-                  <li class="profits-before-extra">
-                    <span>$<%= h.abbreviateNumber(h.getValue(company.finances, 'netincomebeforeextra', publishYear)) %></span>
-                    net income before extra items
                   </li>
                 </ul>
               </div>
