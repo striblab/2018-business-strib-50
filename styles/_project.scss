@@ -2,6 +2,8 @@
  * Project specific styling.
  */
 
+$category-colors: #ebe3d3, #d5e1ec, #edd4d4, #dbe3ce, #d6d6e6, #b7b78a;
+
 form.inline-form {
   display: flex;
 
@@ -22,16 +24,46 @@ form.inline-form {
 }
 
 .controls {
-  margin-bottom: 2em;
+  margin-bottom: 1.5em;
+
+  button {
+    margin-bottom: 0.5em;
+    font-size: 0.9em;
+    color: $color-text;
+    border: 2px solid transparent;
+    background-color: $color-white;
+  }
 
   button.active {
-    background-color: map-get($theme, "green-dark");
+    background-color: $color-white;
+    border: 2px solid #767676;
+  }
+
+  @each $c in $category-colors {
+    $i: index($category-colors, $c);
+    .category-color-#{$i} {
+      background-color: $c;
+      border: 2px solid transparent;
+
+      &.active,
+      &:hover {
+        background-color: darken($c, 20%);
+        border: 2px solid #767676;
+      }
+    }
   }
 }
 
 .company-list {
   margin: 0;
   padding: 0;
+
+  @each $c in $category-colors {
+    $i: index($category-colors, $c);
+    .category-color-#{$i} .rank {
+      background-color: $c;
+    }
+  }
 
   .strib-arrow-value-up {
     color: map-get($theme, "green-dark");
@@ -83,6 +115,24 @@ form.inline-form {
       padding-right: 0;
       border-right: none;
     }
+  }
+
+  .footnotes {
+    font-size: 0.65em;
+    color: map-get($grays, medium);
+    margin-bottom: 1.25em;
+  }
+
+  .company-logo {
+    display: none;
+
+    @include media-breakpoint-up(md) {
+      display: block;
+    }
+  }
+
+  .has-tooltip-title {
+    cursor: help;
   }
 
   .company-logo {

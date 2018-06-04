@@ -3,7 +3,7 @@
  */
 
 // Define globals that are added through the config.json file, here like this:
-// /* global _, $ */
+/* global $ */
 'use strict';
 
 // Dependencies
@@ -29,8 +29,8 @@ $('#filter-category button').on('click', e => {
 
   // Hide
   if (filter) {
-    $(`.company:not([data-category=${filter}])`).slideUp('fast');
-    $(`.company[data-category=${filter}]`).slideDown('fast');
+    $(`.company:not([data-category="${filter}"])`).slideUp('fast');
+    $(`.company[data-category="${filter}"]`).slideDown('fast');
   }
   else {
     $('.company').slideDown('fast');
