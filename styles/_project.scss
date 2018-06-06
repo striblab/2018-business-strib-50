@@ -2,10 +2,23 @@
  * Project specific styling.
  */
 
-$category-colors: #ebe3d3, #d5e1ec, #edd4d4, #dbe3ce, #d6d6e6, #b7b78a;
+$category-colors: #EBE3D3, #D5E1EC, #EDD4D4, #DBE3CE, #D6D6E6, #B7B78A;
+
+* {
+  font-size: 14px;
+}
+
+.hero h1 {
+  max-width: 600px;
+  margin: 0 auto 0.5em;
+}
 
 form.inline-form {
   display: flex;
+  padding-bottom: 1em;
+  border-bottom: 3px solid #676767;
+  margin-bottom: 2em;
+  text-align: center;
 
   .inline-form-element {
     label,
@@ -41,6 +54,7 @@ form.inline-form {
 
   @each $c in $category-colors {
     $i: index($category-colors, $c);
+
     .category-color-#{$i} {
       background-color: $c;
       border: 2px solid transparent;
@@ -59,7 +73,9 @@ form.inline-form {
   padding: 0;
 
   @each $c in $category-colors {
+
     $i: index($category-colors, $c);
+
     .category-color-#{$i} .rank {
       background-color: $c;
     }
@@ -74,25 +90,40 @@ form.inline-form {
   }
 
   & > li {
-    margin: 0;
-    padding: 0;
+    padding-bottom: 2em;
+    border-bottom: 2px solid #E8E8E8;
     margin-bottom: 2em;
   }
 
   p {
-    margin-bottom: 1em;
+    margin-bottom: 0.5em;
+
+    @include font-styles("benton-sans");
+
+    letter-spacing: -0.2px;
   }
 
   .rank {
-    width: 100%;
-    font-size: 3em;
+    // width: 100%;
+    @include font-styles("popular-light");
+
+    font-size: 4em;
+    font-style: normal;
+    font-weight: normal;
+    margin: 0;
     text-align: center;
-    padding: 0.5em;
+    padding: 0.25em;
+    border-radius: 0.1em;
     background-color: map-get($grays, "lighter");
+
+    @media only screen and (max-width: map-get($breakpoints, 'sm')) {
+      font-size: 2.5em;
+      font-weight: bold;
+    }
   }
 
   h2 {
-    font-size: 2em;
+    font-size: 2.2em;
     padding: 0;
     margin: 0 0 0.5em;
   }
@@ -100,14 +131,40 @@ form.inline-form {
   .tags {
     margin: 0;
     padding: 0;
-    margin-bottom: 1em;
+    margin-bottom: 1.5em;
 
     li {
-      font-size: 0.75em;
+      strong {
+        font-size: 1em;
+        line-height: 1em;
+      }
+
+      font-size: 0.85em;
       display: inline-block;
-      padding-right: 2em;
-      margin-right: 2em;
+      line-height: 1em;
+      padding-right: 0.5em;
+      margin-right: 0.5em;
       border-right: 2px solid map-get($grays, "lighter");
+
+      a {
+        font-size: inherit;
+      }
+
+      span {
+        line-height: 1em;
+        font-size: 1em;
+
+        i {
+          line-height: 1em;
+          font-size: 1em;
+        }
+      }
+
+      @include media-breakpoint-up(md) {
+        padding-right: 2em;
+        margin-right: 2em;
+        font-size: 0.85em;
+      }
     }
 
     li:last-child {
@@ -161,8 +218,19 @@ form.inline-form {
       padding: 0;
       font-size: 0.75em;
 
+      @include media-breakpoint-up(md) {
+        font-size: 0.85em;
+        display: block;
+      }
+
       span {
-        font-size: 1.5em;
+        font-size: 1.4em;
+        display: inline-block;
+
+        @include media-breakpoint-up(md) {
+          font-size: 1.5em;
+          display: block;
+        }
       }
     }
 
@@ -171,10 +239,19 @@ form.inline-form {
     .employees,
     .marketcap,
     .assets {
-      margin-bottom: 1em;
+      margin-bottom: 0;
+
+      @include media-breakpoint-up(md) {
+        margin-bottom: 1em;
+      }
 
       span {
         font-weight: bold;
+        display: inline-block;
+
+        @include media-breakpoint-up(md) {
+          display: block;
+        }
       }
     }
   }
@@ -185,7 +262,7 @@ footer .credits {
   padding-top: 5em;
 
   p {
-    @include font-styles("bentons-sans");
+    @include font-styles("benton-sans");
 
     margin-bottom: 1em;
   }
