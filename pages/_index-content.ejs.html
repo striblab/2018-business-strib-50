@@ -67,14 +67,18 @@
                   <% } %>
 
                   <li><%= publishYear - 1 %> ranking:
-                    <strong><%= company.ranks[publishYear - 1] %></strong>
-                    <span title="Last year's ranking: <%= company.ranks[publishYear - 1] %>">
-                      <% if (company.ranks[publishYear] < company.ranks[publishYear - 1]) { %>
-                        <i class="strib-icon strib-arrow-value-up"></i>
-                      <% } else if (company.ranks[publishYear] > company.ranks[publishYear - 1]) { %>
-                        <i class="strib-icon strib-arrow-value-down"></i>
-                      <% } %>
-                    </span>
+                    <% if (company.ranks[publishYear - 1]) { %>
+                      <strong><%= company.ranks[publishYear - 1] %></strong>
+                      <span title="Last year's ranking: <%= company.ranks[publishYear - 1] %>">
+                        <% if (company.ranks[publishYear] < company.ranks[publishYear - 1]) { %>
+                          <i class="strib-icon strib-arrow-value-up"></i>
+                        <% } else if (company.ranks[publishYear] > company.ranks[publishYear - 1]) { %>
+                          <i class="strib-icon strib-arrow-value-down"></i>
+                        <% } %>
+                      </span>
+                    <% } else { %>
+                      <strong>n/a</strong>
+                    <% } %>
                   </li>
 
                   <% if (h.getValue(company.employees, 'total', publishYear)) { %>
