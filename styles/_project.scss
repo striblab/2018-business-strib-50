@@ -2,20 +2,24 @@
  * Project specific styling.
  */
 
-$category-colors: #EBE3D3,
-#D5E1EC,
-#EDD4D4,
-#DBE3CE,
-#D6D6E6,
-#B7B78A;
+$category-colors: #ebe3d3, #d5e1ec, #edd4d4, #dbe3ce, #d6d6e6, #b7b78a;
 
 * {
   font-size: 14px;
 }
 
 .hero h1 {
-  max-width: 600px;
   margin: 0 auto 0.5em;
+  font-size: 4em;
+
+  @include media-breakpoint-up(md) {
+    font-size: 5.55em;
+  }
+}
+
+.intro-paragraph {
+  margin-top: -1em;
+  margin-bottom: 4em;
 }
 
 form.inline-form {
@@ -27,7 +31,7 @@ form.inline-form {
 
   .inline-form-element {
     label,
-    &>div {
+    & > div {
       display: inline-block;
     }
 
@@ -78,7 +82,6 @@ form.inline-form {
   padding: 0;
 
   @each $c in $category-colors {
-
     $i: index($category-colors, $c);
 
     .category-color-#{$i} .rank {
@@ -94,9 +97,9 @@ form.inline-form {
     color: map-get($theme, "red-dark");
   }
 
-  &>li {
+  & > li {
     padding-bottom: 2em;
-    border-bottom: 2px solid #E8E8E8;
+    border-bottom: 2px solid #e8e8e8;
     margin-bottom: 2em;
   }
 
@@ -121,7 +124,7 @@ form.inline-form {
     border-radius: 0.1em;
     background-color: map-get($grays, "lighter");
 
-    @media only screen and (max-width: map-get($breakpoints, 'sm')) {
+    @media only screen and (max-width: map-get($breakpoints, "sm")) {
       font-size: 2.5em;
       font-weight: bold;
     }
@@ -132,13 +135,12 @@ form.inline-form {
     padding: 0;
     margin: 0;
     line-height: 1em;
-    padding-bottom: 0.2em
+    padding-bottom: 0.2em;
   }
 
   .tags {
     margin: 1em 0 2em 0;
     padding: 0;
-  
 
     li {
       strong {
@@ -206,14 +208,14 @@ form.inline-form {
       max-height: 8em;
       padding-top: 1em;
       // padding-right:.5rem;
-      margin-right:0rem;
+      margin-right: 0rem;
     }
   }
 
   .data-row {
-    margin-left:19%;
+    margin-left: 19%;
     @include media-breakpoint-up(sm) {
-      margin-left:-.5rem;
+      margin-left: -0.5rem;
     }
     em {
       font-size: 0.5em;
