@@ -2,7 +2,7 @@
  * Project specific styling.
  */
 
-$category-colors: #ebe3d3, #d5e1ec, #edd4d4, #dbe3ce, #d6d6e6, #b7b78a;
+$category-colors: #EBE3D3, #D5E1EC, #EDD4D4, #DBE3CE, #D6D6E6, #B7B78A;
 
 * {
   font-size: 14px;
@@ -11,9 +11,34 @@ $category-colors: #ebe3d3, #d5e1ec, #edd4d4, #dbe3ce, #d6d6e6, #b7b78a;
 .hero h1 {
   margin: 0 auto 0.5em;
   font-size: 4em;
+  line-height: 0.555em;
 
   @include media-breakpoint-up(md) {
     font-size: 5.55em;
+    line-height: 0.75em;
+  }
+
+  .sub-title {
+    display: inline-block;
+    font-size: 0.45em;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    line-break: 0.85em;
+
+    @include media-breakpoint-down(sm) {
+      font-size: 0.4em;
+    }
+
+    @include media-breakpoint-up(md) {
+      font-size: 0.55em;
+    }
+
+    sup {
+      display: inline-block;
+      font-size: 0.5em;
+      vertical-align: super;
+      padding-left: 0.15em;
+    }
   }
 }
 
@@ -99,7 +124,7 @@ form.inline-form {
 
   & > li {
     padding-bottom: 2em;
-    border-bottom: 2px solid #e8e8e8;
+    border-bottom: 2px solid #E8E8E8;
     margin-bottom: 2em;
     list-style: none;
   }
@@ -140,7 +165,7 @@ form.inline-form {
   }
 
   .tags {
-    margin: 1em 0 2em 0;
+    margin: 1em 0 2em;
     padding: 0;
 
     li {
@@ -211,15 +236,17 @@ form.inline-form {
       max-height: 8em;
       padding-top: 1em;
       // padding-right:.5rem;
-      margin-right: 0rem;
+      margin-right: 0;
     }
   }
 
   .data-row {
     margin-left: 19%;
+
     @include media-breakpoint-up(sm) {
       margin-left: -0.5rem;
     }
+
     em {
       font-size: 0.5em;
     }
