@@ -5,16 +5,20 @@
     <header class="hero">
       <h1>Star Tribune 50:<br>The 27<sup>th</sup> annual report</h1>
 
-      <p class="lead container-md">A strong economy helped the 50 largest companies in Minnesota to increase overall revenues by 6.6 percent, much better than 2016 when the collective revenues grew 4.4 percent.</p>
+      <p class="lead container-md">A strong economy helped the 50 largest public companies in Minnesota to increase overall revenues 6.6 percent, better than 2016 when collective revenues grew 4.4 percent.</p>
 
       <div class="byline">
         <address>By
-          <a rel="author" href="http://example.com/author">Patrick Kennedy</a>
+          <a rel="author" href="http://www.startribune.com/patrick-kennedy/10645186/">Patrick Kennedy</a>
         </address>
         <span class="spacer"></span>
         Star Tribune
         <span class="spacer-alt"></span>
         <time pubdate datetime="2018-06-17T16:00:00">June 17, 2018</time>
+      </div>
+
+      <div class="sharing-placeholder">
+        <!-- sharing -->
       </div>
     </header>
 
@@ -104,7 +108,7 @@
             <div class="row data-row">
               <div class="col col-0 col-20 company-logo">
                 <% if (company.hasLogo) { %>
-                  <img src="./assets/logos/<%= company.coid %>.png" alt="Logo for <%= company.company %>">
+                  <img src="<%= logoLocation %><%= company.coid %>.png" alt="Logo for <%= company.name %>">
                 <% } else { %>
                   &nbsp;
                 <% } %>

@@ -101,6 +101,7 @@ form.inline-form {
     padding-bottom: 2em;
     border-bottom: 2px solid #e8e8e8;
     margin-bottom: 2em;
+    list-style: none;
   }
 
   p {
@@ -143,6 +144,8 @@ form.inline-form {
     padding: 0;
 
     li {
+      list-style: none;
+
       strong {
         font-size: 1em;
         line-height: 1em;
@@ -235,6 +238,7 @@ form.inline-form {
       margin: 0;
       padding: 0;
       font-size: 0.75em;
+      list-style: none;
 
       @include media-breakpoint-up(md) {
         font-size: 0.85em;
@@ -277,7 +281,8 @@ form.inline-form {
 
 footer .credits {
   font-size: 0.65em;
-  padding-top: 5em;
+  padding-top: 4em;
+  margin-bottom: 4em;
 
   p {
     @include font-styles("benton-sans");

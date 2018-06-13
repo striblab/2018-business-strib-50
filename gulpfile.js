@@ -74,7 +74,11 @@ gulp.task('html', async () => {
       logos: path.join(__dirname, 'assets', 'logos')
     },
     h: { data: companyHelpers },
-    publishYear: { data: 2018 }
+    publishYear: { data: 2018 },
+    logoLocation: {
+      data:
+        'http://static.startribune.com/news/projects/all/2018-business-strib-50/assets/logos/'
+    }
   });
 
   // Put together
