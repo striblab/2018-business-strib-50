@@ -84,7 +84,7 @@
                         <% } %>
                       </span>
                     <% } else { %>
-                      <strong>n/a</strong>
+                      <strong><abbr title="Not applicable">n/a</abbr></strong>
                     <% } %>
                   </li>
 
@@ -146,14 +146,18 @@
                   </li>
 
                   <li class="profits-change">
-                    <span class="has-tooltip-title" title="$<%= h.millions(h.getValue(company.finances, 'netincomebeforeextra', publishYear - 1)) %> in <%= publishYear - 1 %>"><%= h.getChange(company.finances, 'netincomebeforeextra', publishYear) %></span>
+                    <% if (h.getValue(company.finances, 'netincomebeforeextra', publishYear - 1) > 0 && h.getValue(company.finances, 'netincomebeforeextra', publishYear) >= 0) { %>
+                      <span class="has-tooltip-title" title="$<%= h.millions(h.getValue(company.finances, 'netincomebeforeextra', publishYear - 1)) %> in <%= publishYear - 1 %>"><%= h.getChange(company.finances, 'netincomebeforeextra', publishYear) %></span>
 
-                    <% if (h.getChange(company.finances, 'netincomebeforeextra', publishYear, 2, false) > 0) { %>
-                      <i class="strib-icon strib-arrow-value-up"></i>
+                      <% if (h.getChange(company.finances, 'netincomebeforeextra', publishYear, 2, false) > 0) { %>
+                        <i class="strib-icon strib-arrow-value-up"></i>
+                      <% } else { %>
+                        <i class="strib-icon strib-arrow-value-down"></i>
+                      <% } %>
+                      change
                     <% } else { %>
-                      <i class="strib-icon strib-arrow-value-down"></i>
+                      <span class="not-meaningful"><abbr title="Not meaningful">NM</abbr></span>
                     <% } %>
-                    change
                   </li>
                 </ul>
               </div>

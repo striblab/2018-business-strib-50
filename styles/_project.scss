@@ -281,6 +281,13 @@ form.inline-form {
           display: block;
         }
       }
+
+      .not-meaningful {
+        display: inline-block;
+        font-size: 0.75em;
+        color: map-get($grays, medium);
+        margin-bottom: 0.4em;
+      }
     }
 
     .revenue,
